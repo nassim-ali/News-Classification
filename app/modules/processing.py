@@ -1,14 +1,18 @@
-from pyspark.ml.feature import RegexTokenizer, StopWordsRemover, HashingTF, IDF
+from pyspark.ml.feature import RegexTokenizer, StopWordsRemover
+from pyspark.ml.feature import IDFModel, HashingTF
 from pyspark.sql import SparkSession
 
-labels = { 0:"World",  1:"Sports",  2:"Business", 
-          3:"Science", 4:"Health",  5:"Politics", 
-          6:"Entertainment", 7:"Tech"}
+labels = { 1:"World",  2:"Sports",  3:"Business", 
+          4:"Science/Tech", 5:"News",  6:"Politics", 
+          7:"Health", 8:"Entertainment"}
 
 spark = SparkSession.builder \
     .master("local[*]") \
     .appName("news-classification") \
     .getOrCreate()
+
+idf_vectorizer = IDFModel.load("idfModel")
+hashing_tf = HashingTF.load("hashingTF")
     
 def process_text(news):
     df = spark.createDataFrame([(news,)], schema=["news"])  
@@ -16,10 +20,7 @@ def process_text(news):
     df = tokenizer.transform(df)
     stopwords_remover = StopWordsRemover(inputCol="words", outputCol="filtered")
     df = stopwords_remover.transform(df)
-    hashing_tf = HashingTF(inputCol="filtered", outputCol="raw_features", numFeatures=10000)
     featurized_data = hashing_tf.transform(df)
-    idf = IDF(inputCol="raw_features", outputCol="features")
-    idf_vectorizer = idf.fit(featurized_data)
     rescaled_data = idf_vectorizer.transform(featurized_data)
     return rescaled_data
 
