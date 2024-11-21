@@ -16,7 +16,7 @@ def index():
             df = process_text(news_text)
             predictions = lrModel.transform(df)
             prediction = predictions.select("prediction").collect()[0]["prediction"]
-            prediction = labels.keys()[labels.values().index(prediction)]
+            prediction = labels[prediction]
 
     return render_template("index.html", prediction=prediction)
 

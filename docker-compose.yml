@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  flask:
+    build:
+      context: ./app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python3", "app.py"]
+
+  jupyter:
+    build:
+      context: ./app
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./app:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
