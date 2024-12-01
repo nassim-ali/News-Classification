@@ -44,14 +44,5 @@ WORKDIR /app
 COPY requirement.txt /app/
 RUN pip3 install --no-cache-dir -r requirement.txt
 
-# Install Jupyter Notebook
-RUN pip3 install jupyter
-
 # Copy application files
 COPY . /app/
-
-# Expose the Jupyter Notebook port
-EXPOSE 8888
-
-# Set the default command to run Jupyter Notebook
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
