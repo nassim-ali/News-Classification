@@ -10,7 +10,6 @@ lrModel = LogisticRegressionModel.load("lrModel")
 @app.route("/", methods=["GET", "POST"])
 def index():
     prediction = None
-    print(f"Before prediction: {prediction}")
     if request.method == "POST":
         news_text = request.form["news"]
         if news_text.strip():
@@ -18,7 +17,6 @@ def index():
             predictions = lrModel.transform(df)
             prediction = predictions.select("prediction").collect()[0]["prediction"]
             prediction = labels[prediction]
-            print(f"After prediction: {prediction}")
 
     return render_template("index.html", prediction=prediction)
 
