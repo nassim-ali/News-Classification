@@ -1,4 +1,3 @@
-```markdown
 # 📰 Classification of News Articles Using Machine Learning Techniques with PySpark
 
 ## 📚 Overview
@@ -73,4 +72,3 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for m
 ## 🙌 Acknowledgments
 
 - **Dataset**: Sourced from [Kaggle](https://www.kaggle.com/datasets/amananandrai/ag-news-classification-dataset).
-```
