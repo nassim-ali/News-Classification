@@ -2,9 +2,7 @@ from pyspark.ml.feature import RegexTokenizer, StopWordsRemover
 from pyspark.ml.feature import IDFModel, HashingTF
 from pyspark.sql import SparkSession
 
-labels = { 1:"World",  2:"Sports",  3:"Business", 
-          4:"Science/Tech", 5:"News",  6:"Politics", 
-          7:"Health", 8:"Entertainment"}
+labels = { 1:"World",  2:"Sports",  3:"Business", 4:"Science/Tech",}
 
 spark = SparkSession.builder \
     .master("local[*]") \
